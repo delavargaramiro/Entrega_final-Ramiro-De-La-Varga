@@ -1,0 +1,24 @@
+{% extends 'app/index.html' %}
+
+{% block titulo %}
+    Registrar pedidos
+{% endblock titulo %}
+
+{% block cabecera %}
+    Registrar pedido
+{% endblock cabecera %}
+
+{% block contenido %}
+<nav class="navbar navbar-light bg-light static-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'Home' %}">Volver al inicio</a>
+    </div>
+</nav>
+<h1>Registrar pedido</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+</form>
+
+{% endblock contenido %}

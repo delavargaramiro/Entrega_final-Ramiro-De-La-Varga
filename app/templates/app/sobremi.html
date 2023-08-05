@@ -1,0 +1,37 @@
+{% extends 'app/index.html' %}
+{% load static %}
+
+{% block titulo %}
+   Sobre mi
+{% endblock titulo %}
+
+{% block cabecera %}
+Para que nos conozcamos mejor
+{% endblock cabecera %}
+
+{% block cabecera2 %}
+
+{% endblock cabecera2 %}
+
+{% block contenido %}
+    <!-- Contenido específico de la página "Sobre mi" -->
+    <section class="about-section text-center" id="about">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="text-white mb-4">Acerca de mi</h2>
+                    <p class="text-white-50">
+                        Mi nombre es Ramiro De La Varga, soy un estudiante de Lic. en administracion de empresas en Argentina. Me encanta trabajar con herramientas como SQL, Power BI y Excel, y busco constantemente formas de utilizar los datos para tomar decisiones informadas 🤔💭 Además, tengo experiencia en sistemas de gestión, especialmente en SAP 💼💻 
+                        A lo largo de mi carrera he adquirido habilidades en diferentes áreas y me gustaría seguir aprendiendo y creciendo en este fascinante mundo de los datos! Para mas info te invito a mi linkedin 
+                        <a href="https://www.linkedin.com/in/ramiro-de-la-varga-aa375a145/">haciendo click aqui!</a>
+                    </p>
+                    <div class="container">
+                        <a class="navbar-brand text-white" href="{% url 'Home' %}">Volver al inicio</a>
+                    </div>
+                </div>
+            </div>
+            <img class="img-fluid" src="{% static 'app/assets/img/ipad.png' %}" alt="..." />
+        </div>
+    </section>
+    
+{% endblock contenido %}

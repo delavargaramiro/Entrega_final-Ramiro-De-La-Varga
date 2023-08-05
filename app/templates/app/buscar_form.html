@@ -1,0 +1,27 @@
+{% extends 'app/index.html' %}
+
+{% block titulo %}
+    Busqueda
+{% endblock titulo %}
+
+{% block cabecera %}
+    Buscar
+{% endblock cabecera %}
+
+{% block contenido %}
+<nav class="navbar navbar-light bg-light static-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'Home' %}">Volver al inicio</a>
+    </div>
+</nav>
+<body>
+    <h1>Buscar</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Buscar</button>
+    </form>
+</body>
+</html>
+{% endblock contenido %}
+
