@@ -1,41 +1,57 @@
 {% extends 'app/index.html' %}
+{% load static %}
 
 {% block titulo %}
-    Registrar producto
+    Resultados de Búsqueda
 {% endblock titulo %}
 
 {% block cabecera %}
-    Registrar producto
+    Resultados de Búsqueda
 {% endblock cabecera %}
 
-{% block contenido %}
-<body>
-    <h1>Resultados de Búsqueda</h1>
-    <h2>Clientes:</h2>
-    <ul>
-        {% for cliente in resultados_clientes %}
-        <li>{{ cliente }}</li>
-        {% empty %}
-        <li>No se encontraron resultados</li>
-        {% endfor %}
-    </ul>
+{% block cabecera2 %}
+Una forma rapida de encontrar el producto, cliente o pedido!
+{% endblock cabecera2 %}  
 
-    <h2>Productos:</h2>
-    <ul>
-        {% for producto in resultados_productos %}
-        <li>{{ producto }}</li>
-        {% empty %}
-        <li>No se encontraron resultados</li>
-        {% endfor %}
-    </ul>
-    <h2>Pedidos:</h2>
-    <ul>
-        {% for pedidos in resultados_pedidos %}
-        <li>{{ pedido }}</li>
-        {% empty %}
-        <li>No se encontraron resultados</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% block contenido %}
+<section class="about-section text-center" id="about">
+    <div class="container px-4 px-lg-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="text-white">Resultados de Búsqueda</h1>
+                <h2 class="text-white">Clientes:</h2>
+                <ul class="text-white">
+                    {% for cliente in resultados_clientes %}
+                        <li>{{ cliente }}</li>
+                    {% empty %}
+                        <li>No se encontraron resultados</li>
+                    {% endfor %}
+                </ul>
+
+                <h2 class="text-white">Productos:</h2>
+                <ul class="text-white">
+                    {% for producto in resultados_productos %}
+                        <li>{{ producto }}</li>
+                    {% empty %}
+                        <li>No se encontraron resultados</li>
+                    {% endfor %}
+                </ul>
+                
+                <h2 class="text-white">Pedidos:</h2>
+                <ul class="text-white">
+                    {% for pedido in resultados_pedidos %}
+                        <li>{{ pedido }} - Valor: ${{ pedido.total }}</li>
+                    {% empty %}
+                        <li>No se encontraron resultados</li>
+                    {% endfor %}
+                </ul>
+                
+                <a href="{% url 'Home' %}" class="btn btn-primary">Volver al Inicio</a>
+                <a href="{% url 'buscar' %}" class="btn btn-primary">Nueva Búsqueda</a>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock contenido %}
+
+

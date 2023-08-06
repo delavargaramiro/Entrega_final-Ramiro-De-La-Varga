@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 
 # Create your models here.
@@ -16,6 +17,7 @@ class Cliente(models.Model):
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
+    cantidad = models.IntegerField()
     descripcion = models.TextField()
 
     def __str__(self):
@@ -26,6 +28,7 @@ class Pedido(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
     total = models.DecimalField(max_digits=10, decimal_places=2)
+    fecha_pedido = models.DateField(default=date(2023, 1, 1))
 
     def __str__(self):
         return f"Pedido de {self.cantidad} {self.producto} de {self.cliente}"

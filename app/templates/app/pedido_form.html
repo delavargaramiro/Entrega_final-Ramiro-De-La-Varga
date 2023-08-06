@@ -1,24 +1,46 @@
 {% extends 'app/index.html' %}
+{% load static %}
 
 {% block titulo %}
-    Registrar pedidos
+    Registrar pedido
 {% endblock titulo %}
 
 {% block cabecera %}
     Registrar pedido
 {% endblock cabecera %}
 
-{% block contenido %}
-<nav class="navbar navbar-light bg-light static-top">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'Home' %}">Volver al inicio</a>
-    </div>
-</nav>
-<h1>Registrar pedido</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar</button>
-</form>
+{% block cabecera2 %}
+En esta pagina registraremos los pedidos
+{% endblock cabecera2 %}  
 
+{% block contenido %}
+<!-- Contenido específico de la página "Registrar pedido" -->
+<section class="about-section text-center" id="about">
+    <div class="container px-4 px-lg-5">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8">
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3 text-center">
+                            <label class="form-label text-white" for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-light">Guardar</button>
+                        <a href="{% url 'lista_pedidos' %}" class="btn btn-primary">Visualizar Pedidos</a>
+                    </div>
+                </form>
+                <div class="mt-4 text-center">
+                    <a class="navbar-brand text-white" href="{% url 'Home' %}">Volver al inicio</a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5">
+            <img class="img-fluid" src="{% static 'app/assets/img/1.png' %}" alt="..." />
+        </div>
+    </div>
+</section>
 {% endblock contenido %}
+

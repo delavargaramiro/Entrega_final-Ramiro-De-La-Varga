@@ -1,0 +1,58 @@
+{% extends 'app/index.html' %}
+{% load static %}
+
+{% block titulo %}
+    Lista de Clientes
+{% endblock titulo %}
+
+{% block cabecera %}
+    Lista de Clientes
+{% endblock cabecera %}
+
+{% block cabecera2 %}
+Un listado detallado de nuestros clientes
+{% endblock cabecera2 %}  
+
+{% block contenido %}
+<section class="about-section text-center" id="about">
+    <div class="container px-4 px-lg-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-white">Lista de Clientes</h2>
+                <table class="table table-bordered text-white">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Dirección</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cliente in clientes %}
+                            <tr>
+                                <td>{{ cliente.nombre }}</td>
+                                <td>{{ cliente.direccion }}</td>
+                                <td>{{ cliente.email }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="3">No hay clientes registrados</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="mt-4 text-center">
+                    <a class="navbar-brand text-white" href="{% url 'clientes' %}">Atrás</a>
+                </div>
+                <div class="mt-2 text-center">
+                    <a class="navbar-brand text-white" href="{% url 'Home' %}">Volver al inicio</a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5">
+            <img class="img-fluid" src="{% static 'app/assets/img/1.png' %}" alt="..." />
+        </div>
+    </div>
+</section>
+{% endblock contenido %}
+

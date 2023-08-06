@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Cliente, Producto, Pedido
@@ -51,8 +52,24 @@ def pedido_view(request):
         if form.is_valid():
             pedido = form.save(commit=False)  
             pedido.total = pedido.cantidad * pedido.producto.precio
+            fecha_actual = datetime.now().date() 
+            pedido.fecha_pedido = fecha_actual
             pedido.save()  
             return redirect('pedido') 
     else:
         form = PedidoForm()
     return render(request, 'app/pedido_form.html', {'form': form})
+
+
+def lista_pedidos(request):
+    pedidos = Pedido.objects.all()
+    return render(request, 'app/lista_pedidos.html', {'pedidos': pedidos})
+
+def lista_clientes(request):
+    clientes = Cliente.objects.all()
+    return render(request, 'app/lista_clientes.html', {'clientes': clientes})
+
+def lista_productos(request):
+    productos = Producto.objects.all()
+    return render(request, 'app/lista_productos.html', {'productos': productos})
+

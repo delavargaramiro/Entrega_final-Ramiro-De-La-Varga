@@ -1,0 +1,60 @@
+{% extends 'app/index.html' %}
+{% load static %}
+
+{% block titulo %}
+    Lista de Pedidos
+{% endblock titulo %}
+
+{% block cabecera %}
+    Lista de Pedidos
+{% endblock cabecera %}
+
+{% block cabecera2 %}
+Listado de pedidos con sus detalles
+{% endblock cabecera2 %}  
+
+{% block contenido %}
+<section class="about-section text-center" id="about">
+    <div class="container px-4 px-lg-5">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8">
+                <h2 class="text-white">Lista de Pedidos</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered text-white">
+                        <thead>
+                            <tr>
+                                <th>Pedido</th>
+                                <th>Valor</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pedido in pedidos %}
+                                <tr>
+                                    <td>{{ pedido }}</td>
+                                    <td>${{ pedido.total }}</td>
+                                    <td>{{ pedido.fecha_pedido }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="3" class="text-center">No hay pedidos registrados</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 text-center">
+                    <a class="btn btn-light" href="{% url 'pedido' %}">Atrás</a>
+                </div>
+                <div class="mt-2 text-center">
+                    <a class="btn btn-light" href="{% url 'Home' %}">Volver al inicio</a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5">
+            <img class="img-fluid" src="{% static 'app/assets/img/1.png' %}" alt="..." />
+        </div>
+    </div>
+</section>
+{% endblock contenido %}
+
