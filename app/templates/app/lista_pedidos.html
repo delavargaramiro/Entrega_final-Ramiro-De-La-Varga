@@ -13,6 +13,7 @@
 Listado de pedidos con sus detalles
 {% endblock cabecera2 %}  
 
+
 {% block contenido %}
 <section class="about-section text-center" id="about">
     <div class="container px-4 px-lg-5">
@@ -23,21 +24,28 @@ Listado de pedidos con sus detalles
                     <table class="table table-bordered text-white">
                         <thead>
                             <tr>
-                                <th>Pedido</th>
-                                <th>Valor</th>
-                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                                <th>Acciones</th>  <!-- Columna para acciones -->
                             </tr>
                         </thead>
                         <tbody>
                             {% for pedido in pedidos %}
                                 <tr>
-                                    <td>{{ pedido }}</td>
+                                    <td>{{ pedido.cliente.nombre }}</td>
+                                    <td>{{ pedido.producto.nombre }}</td>
+                                    <td>{{ pedido.cantidad }}</td>
                                     <td>${{ pedido.total }}</td>
-                                    <td>{{ pedido.fecha_pedido }}</td>
+                                    <td>
+                                        <a href="{% url 'editar_pedido' pedido.id %}" class="btn btn-primary">Editar</a>
+                                        <a href="{% url 'borrar_pedido' pedido.id %}" class="btn btn-danger">Borrar</a>
+                                    </td>
                                 </tr>
                             {% empty %}
                                 <tr>
-                                    <td colspan="3" class="text-center">No hay pedidos registrados</td>
+                                    <td colspan="5" class="text-center">No hay pedidos registrados</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -52,7 +60,7 @@ Listado de pedidos con sus detalles
             </div>
         </div>
         <div class="mt-5">
-            <img class="img-fluid" src="{% static 'app/assets/img/1.png' %}" alt="..." />
+            <img class="img-fluidmx-auto" style="max-width: 500px;" src="{% static 'app/assets/img/1.png' %}" alt="..." />
         </div>
     </div>
 </section>

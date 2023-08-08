@@ -1,0 +1,39 @@
+{% extends 'app/index.html' %}
+{% load static %}
+
+{% block titulo %}
+    Editar Producto
+{% endblock titulo %}
+
+{% block cabecera %}
+    Editar Producto
+{% endblock cabecera %}
+
+{% block contenido %}
+<section class="about-section text-center" id="about">
+    <div class="container px-4 px-lg-5">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8">
+                <h2 class="text-white">Editar Producto</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="table table-bordered text-white">
+                        <table class="table text-white ">
+                            {% for field in form %}
+                                <tr>
+                                    <th>{{ field.label_tag }}</th>
+                                    <td>{{ field }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-light">Guardar Cambios</button>
+                        <a href="{% url 'lista_productos' %}" class="btn btn-primary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock contenido %}

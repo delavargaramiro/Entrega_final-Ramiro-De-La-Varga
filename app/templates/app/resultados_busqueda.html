@@ -10,7 +10,7 @@
 {% endblock cabecera %}
 
 {% block cabecera2 %}
-Una forma rapida de encontrar el producto, cliente o pedido!
+Una forma rápida de encontrar el producto, cliente o pedido!
 {% endblock cabecera2 %}  
 
 {% block contenido %}
@@ -19,32 +19,70 @@ Una forma rapida de encontrar el producto, cliente o pedido!
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <h1 class="text-white">Resultados de Búsqueda</h1>
+                
                 <h2 class="text-white">Clientes:</h2>
-                <ul class="text-white">
-                    {% for cliente in resultados_clientes %}
-                        <li>{{ cliente }}</li>
-                    {% empty %}
-                        <li>No se encontraron resultados</li>
-                    {% endfor %}
-                </ul>
+                {% if resultados_clientes %}
+                <table class="table text-white">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cliente in resultados_clientes %}
+                        <tr>
+                            <td>{{ cliente }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p class="text-white">No se encontraron resultados</p>
+                {% endif %}
 
                 <h2 class="text-white">Productos:</h2>
-                <ul class="text-white">
-                    {% for producto in resultados_productos %}
-                        <li>{{ producto }}</li>
-                    {% empty %}
-                        <li>No se encontraron resultados</li>
-                    {% endfor %}
-                </ul>
+                {% if resultados_productos %}
+                <table class="table text-white">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in resultados_productos %}
+                        <tr>
+                            <td>{{ producto }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p class="text-white">No se encontraron resultados</p>
+                {% endif %}
                 
                 <h2 class="text-white">Pedidos:</h2>
-                <ul class="text-white">
-                    {% for pedido in resultados_pedidos %}
-                        <li>{{ pedido }} - Valor: ${{ pedido.total }}</li>
-                    {% empty %}
-                        <li>No se encontraron resultados</li>
-                    {% endfor %}
-                </ul>
+                {% if resultados_pedidos %}
+                <table class="table text-white">
+                    <thead>
+                        <tr>
+                            <th>Pedido</th>
+                            <th>Valor</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pedido in resultados_pedidos %}
+                        <tr>
+                            <td>{{ pedido }}</td>
+                            <td>${{ pedido.total }}</td>
+                            <td>{{ pedido.fecha_pedido }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p class="text-white">No se encontraron resultados</p>
+                {% endif %}
                 
                 <a href="{% url 'Home' %}" class="btn btn-primary">Volver al Inicio</a>
                 <a href="{% url 'buscar' %}" class="btn btn-primary">Nueva Búsqueda</a>
@@ -53,5 +91,4 @@ Una forma rapida de encontrar el producto, cliente o pedido!
     </div>
 </section>
 {% endblock contenido %}
-
 

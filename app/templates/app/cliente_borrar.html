@@ -1,0 +1,27 @@
+{% extends 'app/index.html' %}
+
+{% block titulo %}
+    Borrar Cliente
+{% endblock titulo %}
+
+{% block cabecera %}
+    Borrar Cliente
+{% endblock cabecera %}
+
+{% block contenido %}
+<section class="about-section text-center" id="about">
+    <div class="container px-4 px-lg-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-white">Borrar Cliente</h2>
+                <p class="text-white">¿Estás seguro de que deseas borrar el cliente "{{ cliente.nombre }}"?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Confirmar Borrado</button>
+                    <a href="{% url 'lista_clientes' %}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock contenido %}

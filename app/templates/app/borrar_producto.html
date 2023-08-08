@@ -1,0 +1,28 @@
+{% extends 'app/index.html' %}
+{% load static %}
+
+{% block titulo %}
+    Borrar Producto
+{% endblock titulo %}
+
+{% block cabecera %}
+    Borrar Producto
+{% endblock cabecera %}
+
+{% block contenido %}
+<section class="about-section text-center" id="about">
+    <div class="container px-4 px-lg-5">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8">
+                <h2 class="text-white">Borrar Producto</h2>
+                <p class="text-white">¿Estás seguro de que deseas borrar el producto "{{ producto.nombre }}"?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Confirmar Borrado</button>
+                    <a href="{% url 'lista_productos' %}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock contenido %}

@@ -1,0 +1,21 @@
+{% extends 'app/index.html' %} 
+{% load static %} 
+
+{% block titulo %}Logout{% endblock titulo %} 
+
+{% block cabecera %}Logout{% endblock cabecera %} 
+
+{% block cabecera2 %}Gracias por utilizar nuestra aplicacion!{% endblock cabecera2 %} 
+
+{% block contenido %}
+    <br>
+    <h4>
+        <p style="color:red" align="center">
+            Ud se ha deslogueado
+        </p>
+    </h4>
+    <p align="center">
+        <a href="{% url 'Home' %}" class="btn btn-primary">Volver a la página principal</a>
+    </p>
+{% endblock contenido %}
+

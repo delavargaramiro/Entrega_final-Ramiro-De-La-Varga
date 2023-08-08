@@ -10,7 +10,7 @@
 {% endblock cabecera %}
 
 {% block cabecera2 %}
-En esta pagina registraremos los productos 
+En esta página registraremos los productos 
 {% endblock cabecera2 %}  
 
 {% block contenido %}
@@ -21,12 +21,17 @@ En esta pagina registraremos los productos
             <div class="col-lg-8">
                 <form method="post">
                     {% csrf_token %}
-                    {% for field in form %}
-                        <div class="mb-3 text-center">
-                            <label class="form-label text-white" for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
-                            {{ field }}
-                        </div>
-                    {% endfor %}
+                    <div class="table-container">
+                        <table class="table table-bordered">
+                            {% for field in form %}
+                                <tr>
+                                    <th class="text-white">{{ field.label_tag }}</th>
+                                    <td class="text-white">{{ field }}</td>
+                                    <td>{{ producto.precio_con_simbolo }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-light">Guardar</button>
                         <a href="{% url 'lista_productos' %}" class="btn btn-primary">Visualizar Productos</a>
@@ -43,3 +48,6 @@ En esta pagina registraremos los productos
     </div>
 </section>
 {% endblock contenido %}
+
+
+

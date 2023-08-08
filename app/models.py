@@ -1,6 +1,7 @@
 from datetime import date
+import formatter
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Cliente(models.Model):
@@ -22,6 +23,10 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+@property
+def precio_con_simbolo(self):
+        return f"${formatter.number_format(self.precio, decimal_pos=2)}"
 
 class Pedido(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
@@ -32,3 +37,10 @@ class Pedido(models.Model):
 
     def __str__(self):
         return f"Pedido de {self.cantidad} {self.producto} de {self.cliente}"
+    
+class Avatar(models.Model):
+    imagen = models.ImageField(upload_to="avatares")
+    user = models.ForeignKey(User, on_delete= models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user} [{self.imagen}]"

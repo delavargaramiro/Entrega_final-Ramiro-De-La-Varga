@@ -1,0 +1,26 @@
+{% extends 'app/index.html' %}
+{% load static %}
+
+{% block titulo %}
+    Registro de Usuario
+{% endblock titulo %}
+
+{% block contenido %}
+<section class="about-section text-center" id="about">
+    <div class="container px-4 px-lg-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="text-white">Registro de Usuario</h1>
+                <form method="post">
+                    {% csrf_token %}
+                    <table class="table table-borderless text-white">
+                        {{ form.as_table }}
+                    </table>
+                    <button type="submit" class="btn btn-primary">Registrarse</button>
+                </form>
+                <a href="{% url 'login' %}" class="btn btn-secondary">Iniciar Sesión</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock contenido %}

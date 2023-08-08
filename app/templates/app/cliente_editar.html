@@ -1,24 +1,19 @@
 {% extends 'app/index.html' %}
-{% load static %}
 
 {% block titulo %}
-    Registrar Cliente
+    Editar Cliente
 {% endblock titulo %}
 
 {% block cabecera %}
-Registrar Clientes
+    Editar Cliente
 {% endblock cabecera %}
 
-{% block cabecera2 %}
-En esta pagina registraremos los clientes 
-{% endblock cabecera2 %}  
-
 {% block contenido %}
-<!-- Contenido específico de la página "Registrar Cliente" -->
 <section class="about-section text-center" id="about">
     <div class="container px-4 px-lg-5">
-        <div class="row justify-content-center align-items-center">
+        <div class="row justify-content-center">
             <div class="col-lg-8">
+                <h2 class="text-white">Editar Cliente</h2>
                 <form method="post">
                     {% csrf_token %}
                     <table class="table table-bordered text-white">
@@ -30,21 +25,12 @@ En esta pagina registraremos los clientes
                         {% endfor %}
                     </table>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-light">Guardar</button>
-                        <a href="{% url 'lista_clientes' %}" class="btn btn-primary">Visualizar Clientes</a>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        <a href="{% url 'lista_clientes' %}" class="btn btn-secondary">Cancelar</a>
                     </div>
                 </form>
-                <div class="mt-4 text-center">
-                    <a class="navbar-brand text-white" href="{% url 'Home' %}">Volver al inicio</a>
-                </div>
             </div>
-        </div>
-        <div class="mt-5">
-            <img class="img-fluid" src="{% static 'app/assets/img/ipad.png' %}" alt="..." />
         </div>
     </div>
 </section>
 {% endblock contenido %}
-
-
-
