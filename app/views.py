@@ -1,8 +1,9 @@
 from datetime import datetime
+from msilib.schema import ListView
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from .models import Avatar, Cliente, Producto, Pedido
-from .forms import ClienteForm, PedidoForm, ProductoForm, BusquedaForm
+from .forms import ClienteForm, PedidoForm, ProductoForm, BusquedaForm, UserEditForm, AvatarFormulario, UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -11,14 +12,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 
 
-
-
 def index(request):
     return render(request, "app/index.html")
 
 def sobremi(request):
     return render(request, "app/sobremi.html")
 
+@login_required
 def cliente_view(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
@@ -29,6 +29,7 @@ def cliente_view(request):
         form = ClienteForm()
     return render(request, 'app/cliente_form.html', {'form': form})
 
+@login_required
 def producto_view(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST)
@@ -39,13 +40,14 @@ def producto_view(request):
         form = ProductoForm()
     return render(request, 'app/producto_form.html', {'form': form})
 
+@login_required
 def buscar_view(request):
     if request.method == 'POST':
         form = BusquedaForm(request.POST)
         if form.is_valid():
             termino_busqueda = form.cleaned_data['termino_busqueda']
             resultados_clientes = Cliente.objects.filter(nombre__icontains=termino_busqueda)
-            resultados_productos = Producto.objects.filter(nombre__icontains=termino_busqueda)
+            resultados_productos = Producto.objects.filter(nombre__icontains=termino_busqueda) 
             resultados_pedidos = Pedido.objects.filter(cliente__nombre__icontains=termino_busqueda) | Pedido.objects.filter(producto__nombre__icontains=termino_busqueda)
             return render(request, 'app/resultados_busqueda.html', 
                           {'resultados_clientes': resultados_clientes, 'resultados_productos': resultados_productos, 'resultados_pedidos': resultados_pedidos,})
@@ -53,6 +55,7 @@ def buscar_view(request):
         form = BusquedaForm()
     return render(request, 'app/buscar_form.html', {'form': form})
 
+@login_required
 def pedido_view(request):
     if request.method == 'POST':
         form = PedidoForm(request.POST)
@@ -67,21 +70,22 @@ def pedido_view(request):
         form = PedidoForm()
     return render(request, 'app/pedido_form.html', {'form': form})
 
-    context = {'form': form}
-    return render(request, 'app/pedido_form.html', context)
-
+@login_required
 def lista_pedidos(request):
     pedidos = Pedido.objects.all()
     return render(request, 'app/lista_pedidos.html', {'pedidos': pedidos})
 
+@login_required
 def lista_clientes(request):
     clientes = Cliente.objects.all()
     return render(request, 'app/lista_clientes.html', {'clientes': clientes})
 
+@login_required
 def lista_productos(request):
     productos = Producto.objects.all()
     return render(request, 'app/lista_productos.html', {'productos': productos})
 
+@login_required
 def editar_cliente(request, cliente_id):
     cliente = Cliente.objects.get(id=cliente_id)
     
@@ -96,6 +100,7 @@ def editar_cliente(request, cliente_id):
     return render(request, 'app/cliente_editar.html', {'form': form})
 
 
+@login_required
 def borrar_cliente(request, cliente_id):
     cliente = Cliente.objects.get(id=cliente_id)
     
@@ -105,6 +110,7 @@ def borrar_cliente(request, cliente_id):
     
     return render(request, 'app/cliente_borrar.html', {'cliente': cliente})
 
+@login_required
 def editar_producto(request, pk):
     producto = get_object_or_404(Producto, pk=pk)
     if request.method == 'POST':
@@ -116,6 +122,7 @@ def editar_producto(request, pk):
         form = ProductoForm(instance=producto)
     return render(request, 'app/editar_producto.html', {'form': form, 'producto': producto})
 
+@login_required
 def borrar_producto(request, pk):
     producto = get_object_or_404(Producto, pk=pk)
     if request.method == 'POST':
@@ -123,6 +130,7 @@ def borrar_producto(request, pk):
         return redirect('lista_productos')
     return render(request, 'app/borrar_producto.html', {'producto': producto})
 
+@login_required
 def editar_pedido(request, pedido_id):
     pedido = get_object_or_404(Pedido, pk=pedido_id)
     if request.method == 'POST':
@@ -134,6 +142,7 @@ def editar_pedido(request, pedido_id):
         form = PedidoForm(instance=pedido)
     return render(request, 'app/editar_pedido.html', {'form': form})
 
+@login_required
 def borrar_pedido(request, pedido_id):
     pedido = get_object_or_404(Pedido, pk=pedido_id)
     if request.method == 'POST':
@@ -175,7 +184,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('Home')  # Cambia 'Home' con la URL a la que quieres redirigir al usuario después de iniciar sesión
+            return redirect('Home')  
     else:
         form = AuthenticationForm()
     return render(request, 'app/login.html', {'form': form})
@@ -195,4 +204,47 @@ def registro_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('Home')  # Cambia 'Home' con la URL a la que quieres redirigir al usuario después de cerrar sesión
+    return redirect('Home')  
+
+
+@login_required
+def editarPerfil(request):
+    usuario = request.user
+    if request.method == "POST":
+        form = UserEditForm(request.POST)
+        if form.is_valid():
+            usuario.first_name = form.cleaned_data.get('first_name')
+            usuario.last_name = form.cleaned_data.get('last_name')
+            usuario.email = form.cleaned_data.get('email')
+            usuario.password1 = form.cleaned_data.get('password1')
+            usuario.save()
+            return render(request, "app/index.html", {'mensaje': f"Usuario {usuario.username} actualizado correctamente"})
+        else:
+            return render(request, "app/editar_perfil.html", {'form': form})
+    else:
+        form = UserEditForm(instance=usuario)
+    return render(request, "app/editar_perfil.html", {'form': form, 'usuario':usuario.username})
+
+@login_required
+def agregarAvatar(request):
+    if request.method == "POST":
+        form = AvatarFormulario(request.POST, request.FILES)
+        if form.is_valid():
+            u = User.objects.get(username=request.user)
+            #_________________ Esto es para borrar el avatar anterior
+            avatarViejo = Avatar.objects.filter(user=u)
+            if len(avatarViejo) > 0: # Si esto es verdad quiere decir que hay un Avatar previo
+                avatarViejo[0].delete()
+
+            #_________________ Grabo avatar nuevo
+            avatar = Avatar(user=u, imagen=form.cleaned_data['imagen'])
+            avatar.save()
+
+            #_________________ Almacenar en session la url del avatar para mostrarla en base
+            imagen = Avatar.objects.get(user=request.user.id).imagen.url
+            request.session['avatar'] = imagen
+
+            return render(request, "app/index.html")
+    else:
+        form = AvatarFormulario()
+    return render(request, "app/agregarAvatar.html", {'form': form})

@@ -1,0 +1,25 @@
+{% extends 'app/index.html' %} 
+
+{% load static %} 
+
+{% block titulo %}
+    Editar Perfil 
+{% endblock titulo %} 
+
+{% block cabecera %}
+    Editar Perfil {{ usuario }} 
+{% endblock cabecera %} 
+
+{% block contenido %}
+    <br>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit">Actualizar Usuario</button>
+    </form>
+    <a href="{% url 'Home' %}" class="btn btn-secondary">Volver al Inicio</a>
+    <a href="{% url 'agregar_avatar' %}" class="btn btn-warning">Editar Avatar</a>
+    
+{% endblock contenido %}

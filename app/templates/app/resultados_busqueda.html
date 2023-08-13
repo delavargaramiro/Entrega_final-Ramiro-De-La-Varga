@@ -46,12 +46,16 @@ Una forma rápida de encontrar el producto, cliente o pedido!
                     <thead>
                         <tr>
                             <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for producto in resultados_productos %}
                         <tr>
-                            <td>{{ producto }}</td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>{{ producto.cantidad }}</td>
+                            <td>{{ producto.precio }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

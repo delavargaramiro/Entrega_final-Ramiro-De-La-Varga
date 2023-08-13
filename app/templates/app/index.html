@@ -42,6 +42,10 @@
                         <li class="nav-item"><a class="btn btn-primary" href="{% url 'pedido' %}">Pedidos</a></li>
                         <li class="nav-item"><a class="btn btn-primary" href="{% url 'admin:index' %}">Soporte</a></li>
                         <p style="color:navajowhite">Bienvenido {{ user.username|upper }}</p>
+                        <div class="text-center">
+                            <img src="{{ request.session.avatar }}" height="40px" weight="40px"/>
+                        </div>    
+                        <li class="nav-item"><a class="btn btn-warning" href="{% url 'Editar_perfil' %}">Editar</a></li>
                         <li class="nav-item"><a class="btn btn-info" href="{% url 'logout' %}">Logout</a></li>    
                         
                         {% else %}
@@ -69,7 +73,7 @@
                             {% endblock cabecera2 %}   
                         </h2>
                             
-                        <a class="btn btn-primary" href="#about">Comencemos</a>
+                        <a class="btn btn-primary" href="{% url 'login' %}">Comencemos</a>
                     </div>
                 </div>
             </div>
